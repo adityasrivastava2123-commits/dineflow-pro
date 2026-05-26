@@ -29,24 +29,42 @@ const sendWhatsAppMessage = async (phone, apiKey, message) => {
 const buildOrderConfirmationMessage = (order, restaurant) => {
   const items = order.items
     .map((item) => `  • ${item.name} ×${item.quantity} — ₹${(item.price * item.quantity).toFixed(0)}`)
-    .join("\n");
+    .join("
+");
   return (
-    `🍽️ *Order Confirmed — ${restaurant.name}*\n\n` +
-    `📋 Order: #${order.orderNumber}\n` +
-    `🪑 Table: ${order.tableNumber}\n\n` +
-    `*Items:*\n${items}\n\n` +
-    `💰 Subtotal: ₹${order.subtotal?.toFixed(0)}\n` +
-    `🧾 Tax: ₹${order.tax?.toFixed(0)}\n` +
-    `✅ *Total: ₹${order.totalAmount?.toFixed(0)}*\n\n` +
+    `🍽️ *Order Confirmed — ${restaurant.name}*
+
+` +
+    `📋 Order: #${order.orderNumber}
+` +
+    `🪑 Table: ${order.tableNumber}
+
+` +
+    `*Items:*
+${items}
+
+` +
+    `💰 Subtotal: ₹${order.subtotal?.toFixed(0)}
+` +
+    `🧾 Tax: ₹${order.tax?.toFixed(0)}
+` +
+    `✅ *Total: ₹${order.totalAmount?.toFixed(0)}*
+
+` +
     `Track your order: ${process.env.CLIENT_URL}/order/${order._id}`
   );
 };
 
 const buildOrderReadyMessage = (order, restaurant) => {
   return (
-    `✅ *Your order is ready!*\n\n` +
-    `🍽️ ${restaurant.name}\n` +
-    `📋 Order: #${order.orderNumber} | Table ${order.tableNumber}\n\n` +
+    `✅ *Your order is ready!*
+
+` +
+    `🍽️ ${restaurant.name}
+` +
+    `📋 Order: #${order.orderNumber} | Table ${order.tableNumber}
+
+` +
     `Your food is ready. Enjoy your meal! 😊`
   );
 };
@@ -55,8 +73,11 @@ const buildOrderStatusMessage = (order, restaurant, status) => {
   const statusEmoji = { accepted: "👨‍🍳", preparing: "🔥", ready: "✅", delivered: "🎉" };
   const statusText = { accepted: "accepted your order", preparing: "is preparing your food", ready: "Your order is READY!", delivered: "Your order has been delivered" };
   return (
-    `${statusEmoji[status] || "📋"} *${restaurant.name}*\n\n` +
-    `Order #${order.orderNumber}: ${statusText[status] || status}\n` +
+    `${statusEmoji[status] || "📋"} *${restaurant.name}*
+
+` +
+    `Order #${order.orderNumber}: ${statusText[status] || status}
+` +
     `Track: ${process.env.CLIENT_URL}/order/${order._id}`
   );
 };
@@ -64,12 +85,22 @@ const buildOrderStatusMessage = (order, restaurant, status) => {
 const buildInvoiceMessage = (order, restaurant) => {
   const invoiceUrl = `${process.env.CLIENT_URL}/order/${order._id}`;
   return (
-    `🧾 *Invoice from ${restaurant.name}*\n\n` +
-    `Order: #${order.orderNumber}\n` +
-    `Date: ${new Date(order.createdAt).toLocaleDateString("en-IN")}\n` +
-    `Amount Paid: ₹${order.totalAmount?.toFixed(0)}\n` +
-    `Payment: ${order.paymentStatus?.toUpperCase()}\n\n` +
-    `View/Download Invoice:\n${invoiceUrl}\n\n` +
+    `🧾 *Invoice from ${restaurant.name}*
+
+` +
+    `Order: #${order.orderNumber}
+` +
+    `Date: ${new Date(order.createdAt).toLocaleDateString("en-IN")}
+` +
+    `Amount Paid: ₹${order.totalAmount?.toFixed(0)}
+` +
+    `Payment: ${order.paymentStatus?.toUpperCase()}
+
+` +
+    `View/Download Invoice:
+${invoiceUrl}
+
+` +
     `Thank you for dining with us! ⭐`
   );
 };
