@@ -217,7 +217,8 @@ export const seedDemoData = async (req, res) => {
           totalOrders: restaurant.totalOrders,
         },
         menuItemsCount: menuItems.length,
-        menuItemsByCategory: {\n          appetizers: menuItems.filter((i) => i.category === "Appetizers").length,
+        menuItemsByCategory: {
+          appetizers: menuItems.filter((i) => i.category === "Appetizers").length,
           mainCourse: menuItems.filter((i) => i.category === "Main Course").length,
           breads: menuItems.filter((i) => i.category === "Breads").length,
           riceDishes: menuItems.filter((i) => i.category === "Rice Dishes").length,
