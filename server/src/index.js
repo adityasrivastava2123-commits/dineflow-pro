@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import app, { initializeSocket } from "./app.js";
 import logger from "./utils/logger.js";
 import mongoose from "mongoose";
+import { seedDemoUser } from "./config/demoData.js";
 
 // Load environment variables
 dotenv.config();
@@ -35,6 +36,9 @@ const startServer = async () => {
   try {
     // Connect to database
     await connectDB();
+
+    // Seed demo data
+    await seedDemoUser();
 
     // Start listening
     server.listen(PORT, () => {
