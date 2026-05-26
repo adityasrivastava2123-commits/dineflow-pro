@@ -18,6 +18,7 @@ import offerRoutes from "./routes/offers.js";
 import restaurantRoutes from "./routes/restaurant.js";
 import invoiceRoutes from "./routes/invoices.js";
 import staffRoutes from "./routes/staff.js";
+import inventoryRoutes from "./routes/inventory.js";
 
 const app = express();
 
@@ -68,8 +69,10 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/offers", offerRoutes);
 app.use("/api/restaurant", restaurantRoutes);
+app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/staff", staffRoutes);
+app.use("/api/inventory", inventoryRoutes);
 
 // ── Health check ──────────────────────────────────────────────
 app.get("/api/health", (req, res) => {
