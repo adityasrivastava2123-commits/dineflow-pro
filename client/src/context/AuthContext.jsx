@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = useCallback(async (email, password) => {
     const res = await authAPI.login({ email, password });
-    const { token, user: userData } = res.data;
+    const { token, user: userData } = res.data.data;
     localStorage.setItem('dineflow_token', token);
     localStorage.setItem('dineflow_user', JSON.stringify(userData));
     setUser(userData);
