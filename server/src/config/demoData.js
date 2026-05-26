@@ -503,3 +503,42 @@ export const seedDemoRestaurant = async (userId) => {
     throw error;
   }
 };
+
+import User from "../models/User.js";
+import bcryptjs from "bcryptjs";
+
+export const seedDemoUser = async () => {
+  try {
+    const existingUser = await User.findOne({ email: "admin@dineflow.com" });
+    if (existingUser) {
+      logger.info("Demo user already exists");
+      return existingUser;
+    }
+
+    const demoUser = new User({
+      name: "Demo Admin",
+      email: "admin@dineflow.com",
+      phone: "9876543210",
+      password: "Demo@1234",
+      role: "admin",
+    });
+
+    const savedUser = await demoUser.save();
+    logger.info("Demo user created successfully");
+
+    // Seed demo restaurant for this user
+    const restaurant = await seedDemoRestaurant(savedUser._id);
+
+    // Link restaurant to user
+    savedUser.restaurant = restaurant._id;
+    await savedUser.save();
+
+    // Seed menu items
+    await seedDemoMenuItems(restaurant._id);
+
+    return savedUser;
+  } catch (error) {
+    logger.error("Error seeding demo user:", error);
+    throw error;
+  }
+};
