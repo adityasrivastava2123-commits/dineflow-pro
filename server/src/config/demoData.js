@@ -1,1 +1,505 @@
-import MenuItem from "../models/MenuItem.js\";\nimport Restaurant from \"../models/Restaurant.js\";\nimport logger from \"../utils/logger.js\";\n\nexport const seedDemoMenuItems = async (restaurantId) => {\n  try {\n    // Check if items already exist\n    const existingItems = await MenuItem.countDocuments({ restaurant: restaurantId });\n    if (existingItems > 0) {\n      logger.info(`Demo items already exist for restaurant ${restaurantId}`);\n      return;\n    }\n\n    const demoItems = [\n      // Appetizers\n      {\n        name: \"Paneer Tikka\",\n        description: \"Marinated paneer cubes grilled to perfection with onions and peppers\",\n        price: 249,\n        category: \"Appetizers\",\n        vegetarian: true,\n        spicyLevel: 2,\n        preparationTime: 15,\n        tags: [\"popular\", \"vegetarian\"],\n        addons: [\n          { name: \"Extra Paneer\", price: 50 },\n          { name: \"Mint Chutney\", price: 20 },\n        ],\n        available: true,\n        rating: 4.5,\n        totalOrders: 156,\n        isPopular: true,\n      },\n      {\n        name: \"Chicken 65\",\n        description: \"Crispy fried chicken pieces with Indian spices\",\n        price: 299,\n        category: \"Appetizers\",\n        vegetarian: false,\n        spicyLevel: 4,\n        preparationTime: 20,\n        tags: [\"popular\", \"spicy\"],\n        addons: [\n          { name: \"Extra Chicken\", price: 80 },\n          { name: \"Lemon Juice\", price: 10 },\n        ],\n        available: true,\n        rating: 4.3,\n        totalOrders: 189,\n        isPopular: true,\n      },\n      {\n        name: \"Samosa (3 pieces)\",\n        description: \"Crispy pastry filled with spiced potato and peas\",\n        price: 99,\n        category: \"Appetizers\",\n        vegetarian: true,\n        spicyLevel: 2,\n        preparationTime: 10,\n        tags: [\"vegetarian\", \"budget-friendly\"],\n        addons: [\n          { name: \"Extra Samosa\", price: 30 },\n          { name: \"Tamarind Chutney\", price: 15 },\n        ],\n        available: true,\n        rating: 4.1,\n        totalOrders: 234,\n        isPopular: false,\n      },\n      {\n        name: \"Veg Spring Rolls (4 pieces)\",\n        description: \"Crispy rolls filled with vegetables, served with sweet and spicy sauce\",\n        price: 149,\n        category: \"Appetizers\",\n        vegetarian: true,\n        spicyLevel: 1,\n        preparationTime: 12,\n        tags: [\"vegetarian\"],\n        addons: [\n          { name: \"Sweet Chilli Sauce\", price: 20 },\n          { name: \"Soy Sauce\", price: 10 },\n        ],\n        available: true,\n        rating: 4.0,\n        totalOrders: 98,\n        isPopular: false,\n      },\n\n      // Main Course - Vegetarian\n      {\n        name: \"Butter Chicken\",\n        description: \"Tender chicken in creamy tomato-based butter sauce\",\n        price: 399,\n        category: \"Main Course\",\n        vegetarian: false,\n        spicyLevel: 2,\n        preparationTime: 25,\n        tags: [\"popular\", \"creamy\"],\n        addons: [\n          { name: \"Extra Rice\", price: 50 },\n          { name: \"Naan\", price: 40 },\n          { name: \"Extra Chicken\", price: 100 },\n        ],\n        available: true,\n        rating: 4.6,\n        totalOrders: 512,\n        isPopular: true,\n      },\n      {\n        name: \"Paneer Butter Masala\",\n        description: \"Soft paneer cubes in rich tomato cream sauce\",\n        price: 329,\n        category: \"Main Course\",\n        vegetarian: true,\n        spicyLevel: 2,\n        preparationTime: 20,\n        tags: [\"popular\", \"vegetarian\"],\n        addons: [\n          { name: \"Extra Rice\", price: 50 },\n          { name: \"Naan\", price: 40 },\n          { name: \"Extra Paneer\", price: 80 },\n        ],\n        available: true,\n        rating: 4.5,\n        totalOrders: 345,\n        isPopular: true,\n      },\n      {\n        name: \"Chole Bhature\",\n        description: \"Fluffy fried bread served with spiced chickpea curry\",\n        price: 199,\n        category: \"Main Course\",\n        vegetarian: true,\n        spicyLevel: 2,\n        preparationTime: 15,\n        tags: [\"vegetarian\", \"street-food\"],\n        addons: [\n          { name: \"Extra Bhature\", price: 60 },\n          { name: \"Pickle\", price: 20 },\n        ],\n        available: true,\n        rating: 4.2,\n        totalOrders: 267,\n        isPopular: false,\n      },\n      {\n        name: \"Dal Makhani\",\n        description: \"Creamy lentil curry simmered with butter and cream\",\n        price: 249,\n        category: \"Main Course\",\n        vegetarian: true,\n        spicyLevel: 1,\n        preparationTime: 30,\n        tags: [\"vegetarian\", \"creamy\"],\n        addons: [\n          { name: \"Extra Rice\", price: 50 },\n          { name: \"Naan\", price: 40 },\n        ],\n        available: true,\n        rating: 4.3,\n        totalOrders: 189,\n        isPopular: false,\n      },\n      {\n        name: \"Tandoori Chicken (Half)\",\n        description: \"Chicken marinated in yogurt and spices, roasted in tandoor\",\n        price: 449,\n        category: \"Main Course\",\n        vegetarian: false,\n        spicyLevel: 3,\n        preparationTime: 35,\n        tags: [\"popular\", \"tandoori\"],\n        addons: [\n          { name: \"Extra Rice\", price: 50 },\n          { name: \"Naan\", price: 40 },\n          { name: \"Lemon\", price: 10 },\n        ],\n        available: true,\n        rating: 4.7,\n        totalOrders: 423,\n        isPopular: true,\n      },\n      {\n        name: \"Biryani - Chicken\",\n        description: \"Fragrant basmati rice cooked with tender chicken and spices\",\n        price: 349,\n        category: \"Main Course\",\n        vegetarian: false,\n        spicyLevel: 2,\n        preparationTime: 25,\n        tags: [\"popular\"],\n        addons: [\n          { name: \"Extra Chicken\", price: 100 },\n          { name: \"Raita\", price: 30 },\n        ],\n        available: true,\n        rating: 4.4,\n        totalOrders: 378,\n        isPopular: true,\n      },\n\n      // Breads\n      {\n        name: \"Garlic Naan\",\n        description: \"Soft bread brushed with butter and garlic\",\n        price: 79,\n        category: \"Breads\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 8,\n        tags: [\"vegetarian\"],\n        addons: [\n          { name: \"Extra Butter\", price: 20 },\n        ],\n        available: true,\n        rating: 4.2,\n        totalOrders: 567,\n        isPopular: false,\n      },\n      {\n        name: \"Tandoori Roti\",\n        description: \"Whole wheat bread cooked in tandoor\",\n        price: 39,\n        category: \"Breads\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 5,\n        tags: [\"vegetarian\", \"healthy\"],\n        addons: [],\n        available: true,\n        rating: 4.0,\n        totalOrders: 456,\n        isPopular: false,\n      },\n      {\n        name: \"Paratha\",\n        description: \"Layered flatbread with butter\",\n        price: 59,\n        category: \"Breads\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 10,\n        tags: [\"vegetarian\"],\n        addons: [\n          { name: \"Aloo (Potato)\", price: 30 },\n          { name: \"Paneer\", price: 50 },\n        ],\n        available: true,\n        rating: 4.1,\n        totalOrders: 389,\n        isPopular: false,\n      },\n\n      // Rice Dishes\n      {\n        name: \"Biryani - Vegetable\",\n        description: \"Fragrant basmati rice with mixed vegetables\",\n        price: 249,\n        category: \"Rice Dishes\",\n        vegetarian: true,\n        spicyLevel: 1,\n        preparationTime: 20,\n        tags: [\"vegetarian\"],\n        addons: [\n          { name: \"Raita\", price: 30 },\n        ],\n        available: true,\n        rating: 4.0,\n        totalOrders: 123,\n        isPopular: false,\n      },\n      {\n        name: \"Fried Rice - Vegetable\",\n        description: \"Rice stir-fried with vegetables and soy sauce\",\n        price: 199,\n        category: \"Rice Dishes\",\n        vegetarian: true,\n        spicyLevel: 1,\n        preparationTime: 15,\n        tags: [\"vegetarian\"],\n        addons: [\n          { name: \"Egg\", price: 40 },\n          { name: \"Extra Vegetables\", price: 30 },\n        ],\n        available: true,\n        rating: 3.9,\n        totalOrders: 98,\n        isPopular: false,\n      },\n      {\n        name: \"Fried Rice - Chicken\",\n        description: \"Rice stir-fried with chicken and vegetables\",\n        price: 249,\n        category: \"Rice Dishes\",\n        vegetarian: false,\n        spicyLevel: 2,\n        preparationTime: 15,\n        tags: [],\n        addons: [\n          { name: \"Extra Chicken\", price: 80 },\n          { name: \"Egg\", price: 40 },\n        ],\n        available: true,\n        rating: 4.1,\n        totalOrders: 156,\n        isPopular: false,\n      },\n\n      // Beverages\n      {\n        name: \"Mango Lassi\",\n        description: \"Sweet yogurt drink with fresh mango pulp\",\n        price: 99,\n        category: \"Beverages\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 5,\n        tags: [\"vegetarian\", \"cold\"],\n        addons: [\n          { name: \"Extra Mango\", price: 30 },\n        ],\n        available: true,\n        rating: 4.3,\n        totalOrders: 234,\n        isPopular: false,\n      },\n      {\n        name: \"Masala Chai\",\n        description: \"Hot tea brewed with traditional Indian spices\",\n        price: 49,\n        category: \"Beverages\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 5,\n        tags: [\"vegetarian\", \"hot\"],\n        addons: [],\n        available: true,\n        rating: 4.0,\n        totalOrders: 567,\n        isPopular: false,\n      },\n      {\n        name: \"Fresh Lime Soda\",\n        description: \"Refreshing lime juice with soda and ice\",\n        price: 79,\n        category: \"Beverages\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 3,\n        tags: [\"vegetarian\", \"cold\"],\n        addons: [\n          { name: \"Extra Lemon\", price: 10 },\n          { name: \"Salt\", price: 0 },\n        ],\n        available: true,\n        rating: 4.1,\n        totalOrders: 345,\n        isPopular: false,\n      },\n\n      // Desserts\n      {\n        name: \"Gulab Jamun (4 pieces)\",\n        description: \"Soft milk solids fried and soaked in sugar syrup\",\n        price: 129,\n        category: \"Desserts\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 10,\n        tags: [\"vegetarian\", \"sweet\"],\n        addons: [],\n        available: true,\n        rating: 4.2,\n        totalOrders: 189,\n        isPopular: false,\n      },\n      {\n        name: \"Kheer (Payasam)\",\n        description: \"Rice pudding with condensed milk and nuts\",\n        price: 149,\n        category: \"Desserts\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 5,\n        tags: [\"vegetarian\", \"sweet\"],\n        addons: [],\n        available: true,\n        rating: 4.3,\n        totalOrders: 134,\n        isPopular: false,\n      },\n      {\n        name: \"Ice Cream - Vanilla\",\n        description: \"Creamy vanilla ice cream\",\n        price: 99,\n        category: \"Desserts\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 2,\n        tags: [\"vegetarian\", \"cold\"],\n        addons: [\n          { name: \"Chocolate Sauce\", price: 30 },\n          { name: \"Sprinkles\", price: 20 },\n        ],\n        available: true,\n        rating: 4.0,\n        totalOrders: 267,\n        isPopular: false,\n      },\n      {\n        name: \"Rasgulla (4 pieces)\",\n        description: \"Soft cheese balls in light sugar syrup\",\n        price: 119,\n        category: \"Desserts\",\n        vegetarian: true,\n        spicyLevel: 0,\n        preparationTime: 5,\n        tags: [\"vegetarian\", \"sweet\"],\n        addons: [],\n        available: true,\n        rating: 4.2,\n        totalOrders: 98,\n        isPopular: false,\n      },\n    ];\n\n    // Add restaurant reference to all items\n    const itemsWithRestaurant = demoItems.map((item) => ({\n      ...item,\n      restaurant: restaurantId,\n    }));\n\n    // Insert all items\n    const createdItems = await MenuItem.insertMany(itemsWithRestaurant);\n    logger.info(`Successfully seeded ${createdItems.length} demo menu items`);\n\n    return createdItems;\n  } catch (error) {\n    logger.error(\"Error seeding demo items:\", error);\n    throw error;\n  }\n};\n\nexport const seedDemoRestaurant = async (userId) => {\n  try {\n    const existingRestaurant = await Restaurant.findOne({ owner: userId });\n    if (existingRestaurant) {\n      logger.info(`Demo restaurant already exists for user ${userId}`);\n      return existingRestaurant;\n    }\n\n    const demoRestaurant = new Restaurant({\n      name: \"The Spice Haven\",\n      slug: \"the-spice-haven\",\n      owner: userId,\n      description: \"Authentic Indian cuisine with traditional recipes passed down through generations\",\n      address: {\n        street: \"123 Food Street\",\n        city: \"Bangalore\",\n        state: \"Karnataka\",\n        zipcode: \"560001\",\n        country: \"India\",\n      },\n      phone: \"+91-9876543210\",\n      email: \"contact@spicehaven.com\",\n      tables: 25,\n      openingHours: {\n        monday: { open: \"11:00 AM\", close: \"11:00 PM\" },\n        tuesday: { open: \"11:00 AM\", close: \"11:00 PM\" },\n        wednesday: { open: \"11:00 AM\", close: \"11:00 PM\" },\n        thursday: { open: \"11:00 AM\", close: \"11:00 PM\" },\n        friday: { open: \"11:00 AM\", close: \"12:00 AM\" },\n        saturday: { open: \"10:00 AM\", close: \"12:00 AM\" },\n        sunday: { open: \"10:00 AM\", close: \"11:00 PM\" },\n      },\n      cuisineType: [\"North Indian\", \"South Indian\", \"Chinese\"],\n      subscriptionPlan: \"pro\",\n      subscriptionStatus: \"active\",\n      features: {\n        analytics: true,\n        advancedOffers: true,\n        kitchenDisplay: true,\n        multiLanguage: true,\n        whatsappIntegration: true,\n      },\n      settings: {\n        currency: \"INR\",\n        taxPercent: 5,\n        deliveryCharges: 0,\n        minimumOrderValue: 200,\n      },\n      averageRating: 4.5,\n      totalOrders: 2145,\n      monthlyRevenue: 450000,\n    });\n\n    const savedRestaurant = await demoRestaurant.save();\n    logger.info(`Successfully created demo restaurant: ${savedRestaurant._id}`);\n\n    return savedRestaurant;\n  } catch (error) {\n    logger.error(\"Error seeding demo restaurant:\", error);\n    throw error;\n  }\n};\n
+import MenuItem from "../models/MenuItem.js\";
+import Restaurant from \"../models/Restaurant.js\";
+import logger from \"../utils/logger.js\";
+
+export const seedDemoMenuItems = async (restaurantId) => {
+  try {
+    // Check if items already exist
+    const existingItems = await MenuItem.countDocuments({ restaurant: restaurantId });
+    if (existingItems > 0) {
+      logger.info(`Demo items already exist for restaurant ${restaurantId}`);
+      return;
+    }
+
+    const demoItems = [
+      // Appetizers
+      {
+        name: \"Paneer Tikka\",
+        description: \"Marinated paneer cubes grilled to perfection with onions and peppers\",
+        price: 249,
+        category: \"Appetizers\",
+        vegetarian: true,
+        spicyLevel: 2,
+        preparationTime: 15,
+        tags: [\"popular\", \"vegetarian\"],
+        addons: [
+          { name: \"Extra Paneer\", price: 50 },
+          { name: \"Mint Chutney\", price: 20 },
+        ],
+        available: true,
+        rating: 4.5,
+        totalOrders: 156,
+        isPopular: true,
+      },
+      {
+        name: \"Chicken 65\",
+        description: \"Crispy fried chicken pieces with Indian spices\",
+        price: 299,
+        category: \"Appetizers\",
+        vegetarian: false,
+        spicyLevel: 4,
+        preparationTime: 20,
+        tags: [\"popular\", \"spicy\"],
+        addons: [
+          { name: \"Extra Chicken\", price: 80 },
+          { name: \"Lemon Juice\", price: 10 },
+        ],
+        available: true,
+        rating: 4.3,
+        totalOrders: 189,
+        isPopular: true,
+      },
+      {
+        name: \"Samosa (3 pieces)\",
+        description: \"Crispy pastry filled with spiced potato and peas\",
+        price: 99,
+        category: \"Appetizers\",
+        vegetarian: true,
+        spicyLevel: 2,
+        preparationTime: 10,
+        tags: [\"vegetarian\", \"budget-friendly\"],
+        addons: [
+          { name: \"Extra Samosa\", price: 30 },
+          { name: \"Tamarind Chutney\", price: 15 },
+        ],
+        available: true,
+        rating: 4.1,
+        totalOrders: 234,
+        isPopular: false,
+      },
+      {
+        name: \"Veg Spring Rolls (4 pieces)\",
+        description: \"Crispy rolls filled with vegetables, served with sweet and spicy sauce\",
+        price: 149,
+        category: \"Appetizers\",
+        vegetarian: true,
+        spicyLevel: 1,
+        preparationTime: 12,
+        tags: [\"vegetarian\"],
+        addons: [
+          { name: \"Sweet Chilli Sauce\", price: 20 },
+          { name: \"Soy Sauce\", price: 10 },
+        ],
+        available: true,
+        rating: 4.0,
+        totalOrders: 98,
+        isPopular: false,
+      },
+
+      // Main Course - Vegetarian
+      {
+        name: \"Butter Chicken\",
+        description: \"Tender chicken in creamy tomato-based butter sauce\",
+        price: 399,
+        category: \"Main Course\",
+        vegetarian: false,
+        spicyLevel: 2,
+        preparationTime: 25,
+        tags: [\"popular\", \"creamy\"],
+        addons: [
+          { name: \"Extra Rice\", price: 50 },
+          { name: \"Naan\", price: 40 },
+          { name: \"Extra Chicken\", price: 100 },
+        ],
+        available: true,
+        rating: 4.6,
+        totalOrders: 512,
+        isPopular: true,
+      },
+      {
+        name: \"Paneer Butter Masala\",
+        description: \"Soft paneer cubes in rich tomato cream sauce\",
+        price: 329,
+        category: \"Main Course\",
+        vegetarian: true,
+        spicyLevel: 2,
+        preparationTime: 20,
+        tags: [\"popular\", \"vegetarian\"],
+        addons: [
+          { name: \"Extra Rice\", price: 50 },
+          { name: \"Naan\", price: 40 },
+          { name: \"Extra Paneer\", price: 80 },
+        ],
+        available: true,
+        rating: 4.5,
+        totalOrders: 345,
+        isPopular: true,
+      },
+      {
+        name: \"Chole Bhature\",
+        description: \"Fluffy fried bread served with spiced chickpea curry\",
+        price: 199,
+        category: \"Main Course\",
+        vegetarian: true,
+        spicyLevel: 2,
+        preparationTime: 15,
+        tags: [\"vegetarian\", \"street-food\"],
+        addons: [
+          { name: \"Extra Bhature\", price: 60 },
+          { name: \"Pickle\", price: 20 },
+        ],
+        available: true,
+        rating: 4.2,
+        totalOrders: 267,
+        isPopular: false,
+      },
+      {
+        name: \"Dal Makhani\",
+        description: \"Creamy lentil curry simmered with butter and cream\",
+        price: 249,
+        category: \"Main Course\",
+        vegetarian: true,
+        spicyLevel: 1,
+        preparationTime: 30,
+        tags: [\"vegetarian\", \"creamy\"],
+        addons: [
+          { name: \"Extra Rice\", price: 50 },
+          { name: \"Naan\", price: 40 },
+        ],
+        available: true,
+        rating: 4.3,
+        totalOrders: 189,
+        isPopular: false,
+      },
+      {
+        name: \"Tandoori Chicken (Half)\",
+        description: \"Chicken marinated in yogurt and spices, roasted in tandoor\",
+        price: 449,
+        category: \"Main Course\",
+        vegetarian: false,
+        spicyLevel: 3,
+        preparationTime: 35,
+        tags: [\"popular\", \"tandoori\"],
+        addons: [
+          { name: \"Extra Rice\", price: 50 },
+          { name: \"Naan\", price: 40 },
+          { name: \"Lemon\", price: 10 },
+        ],
+        available: true,
+        rating: 4.7,
+        totalOrders: 423,
+        isPopular: true,
+      },
+      {
+        name: \"Biryani - Chicken\",
+        description: \"Fragrant basmati rice cooked with tender chicken and spices\",
+        price: 349,
+        category: \"Main Course\",
+        vegetarian: false,
+        spicyLevel: 2,
+        preparationTime: 25,
+        tags: [\"popular\"],
+        addons: [
+          { name: \"Extra Chicken\", price: 100 },
+          { name: \"Raita\", price: 30 },
+        ],
+        available: true,
+        rating: 4.4,
+        totalOrders: 378,
+        isPopular: true,
+      },
+
+      // Breads
+      {
+        name: \"Garlic Naan\",
+        description: \"Soft bread brushed with butter and garlic\",
+        price: 79,
+        category: \"Breads\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 8,
+        tags: [\"vegetarian\"],
+        addons: [
+          { name: \"Extra Butter\", price: 20 },
+        ],
+        available: true,
+        rating: 4.2,
+        totalOrders: 567,
+        isPopular: false,
+      },
+      {
+        name: \"Tandoori Roti\",
+        description: \"Whole wheat bread cooked in tandoor\",
+        price: 39,
+        category: \"Breads\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 5,
+        tags: [\"vegetarian\", \"healthy\"],
+        addons: [],
+        available: true,
+        rating: 4.0,
+        totalOrders: 456,
+        isPopular: false,
+      },
+      {
+        name: \"Paratha\",
+        description: \"Layered flatbread with butter\",
+        price: 59,
+        category: \"Breads\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 10,
+        tags: [\"vegetarian\"],
+        addons: [
+          { name: \"Aloo (Potato)\", price: 30 },
+          { name: \"Paneer\", price: 50 },
+        ],
+        available: true,
+        rating: 4.1,
+        totalOrders: 389,
+        isPopular: false,
+      },
+
+      // Rice Dishes
+      {
+        name: \"Biryani - Vegetable\",
+        description: \"Fragrant basmati rice with mixed vegetables\",
+        price: 249,
+        category: \"Rice Dishes\",
+        vegetarian: true,
+        spicyLevel: 1,
+        preparationTime: 20,
+        tags: [\"vegetarian\"],
+        addons: [
+          { name: \"Raita\", price: 30 },
+        ],
+        available: true,
+        rating: 4.0,
+        totalOrders: 123,
+        isPopular: false,
+      },
+      {
+        name: \"Fried Rice - Vegetable\",
+        description: \"Rice stir-fried with vegetables and soy sauce\",
+        price: 199,
+        category: \"Rice Dishes\",
+        vegetarian: true,
+        spicyLevel: 1,
+        preparationTime: 15,
+        tags: [\"vegetarian\"],
+        addons: [
+          { name: \"Egg\", price: 40 },
+          { name: \"Extra Vegetables\", price: 30 },
+        ],
+        available: true,
+        rating: 3.9,
+        totalOrders: 98,
+        isPopular: false,
+      },
+      {
+        name: \"Fried Rice - Chicken\",
+        description: \"Rice stir-fried with chicken and vegetables\",
+        price: 249,
+        category: \"Rice Dishes\",
+        vegetarian: false,
+        spicyLevel: 2,
+        preparationTime: 15,
+        tags: [],
+        addons: [
+          { name: \"Extra Chicken\", price: 80 },
+          { name: \"Egg\", price: 40 },
+        ],
+        available: true,
+        rating: 4.1,
+        totalOrders: 156,
+        isPopular: false,
+      },
+
+      // Beverages
+      {
+        name: \"Mango Lassi\",
+        description: \"Sweet yogurt drink with fresh mango pulp\",
+        price: 99,
+        category: \"Beverages\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 5,
+        tags: [\"vegetarian\", \"cold\"],
+        addons: [
+          { name: \"Extra Mango\", price: 30 },
+        ],
+        available: true,
+        rating: 4.3,
+        totalOrders: 234,
+        isPopular: false,
+      },
+      {
+        name: \"Masala Chai\",
+        description: \"Hot tea brewed with traditional Indian spices\",
+        price: 49,
+        category: \"Beverages\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 5,
+        tags: [\"vegetarian\", \"hot\"],
+        addons: [],
+        available: true,
+        rating: 4.0,
+        totalOrders: 567,
+        isPopular: false,
+      },
+      {
+        name: \"Fresh Lime Soda\",
+        description: \"Refreshing lime juice with soda and ice\",
+        price: 79,
+        category: \"Beverages\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 3,
+        tags: [\"vegetarian\", \"cold\"],
+        addons: [
+          { name: \"Extra Lemon\", price: 10 },
+          { name: \"Salt\", price: 0 },
+        ],
+        available: true,
+        rating: 4.1,
+        totalOrders: 345,
+        isPopular: false,
+      },
+
+      // Desserts
+      {
+        name: \"Gulab Jamun (4 pieces)\",
+        description: \"Soft milk solids fried and soaked in sugar syrup\",
+        price: 129,
+        category: \"Desserts\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 10,
+        tags: [\"vegetarian\", \"sweet\"],
+        addons: [],
+        available: true,
+        rating: 4.2,
+        totalOrders: 189,
+        isPopular: false,
+      },
+      {
+        name: \"Kheer (Payasam)\",
+        description: \"Rice pudding with condensed milk and nuts\",
+        price: 149,
+        category: \"Desserts\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 5,
+        tags: [\"vegetarian\", \"sweet\"],
+        addons: [],
+        available: true,
+        rating: 4.3,
+        totalOrders: 134,
+        isPopular: false,
+      },
+      {
+        name: \"Ice Cream - Vanilla\",
+        description: \"Creamy vanilla ice cream\",
+        price: 99,
+        category: \"Desserts\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 2,
+        tags: [\"vegetarian\", \"cold\"],
+        addons: [
+          { name: \"Chocolate Sauce\", price: 30 },
+          { name: \"Sprinkles\", price: 20 },
+        ],
+        available: true,
+        rating: 4.0,
+        totalOrders: 267,
+        isPopular: false,
+      },
+      {
+        name: \"Rasgulla (4 pieces)\",
+        description: \"Soft cheese balls in light sugar syrup\",
+        price: 119,
+        category: \"Desserts\",
+        vegetarian: true,
+        spicyLevel: 0,
+        preparationTime: 5,
+        tags: [\"vegetarian\", \"sweet\"],
+        addons: [],
+        available: true,
+        rating: 4.2,
+        totalOrders: 98,
+        isPopular: false,
+      },
+    ];
+
+    // Add restaurant reference to all items
+    const itemsWithRestaurant = demoItems.map((item) => ({
+      ...item,
+      restaurant: restaurantId,
+    }));
+
+    // Insert all items
+    const createdItems = await MenuItem.insertMany(itemsWithRestaurant);
+    logger.info(`Successfully seeded ${createdItems.length} demo menu items`);
+
+    return createdItems;
+  } catch (error) {
+    logger.error(\"Error seeding demo items:\", error);
+    throw error;
+  }
+};
+
+export const seedDemoRestaurant = async (userId) => {
+  try {
+    const existingRestaurant = await Restaurant.findOne({ owner: userId });
+    if (existingRestaurant) {
+      logger.info(`Demo restaurant already exists for user ${userId}`);
+      return existingRestaurant;
+    }
+
+    const demoRestaurant = new Restaurant({
+      name: \"The Spice Haven\",
+      slug: \"the-spice-haven\",
+      owner: userId,
+      description: \"Authentic Indian cuisine with traditional recipes passed down through generations\",
+      address: {
+        street: \"123 Food Street\",
+        city: \"Bangalore\",
+        state: \"Karnataka\",
+        zipcode: \"560001\",
+        country: \"India\",
+      },
+      phone: \"+91-9876543210\",
+      email: \"contact@spicehaven.com\",
+      tables: 25,
+      openingHours: {
+        monday: { open: \"11:00 AM\", close: \"11:00 PM\" },
+        tuesday: { open: \"11:00 AM\", close: \"11:00 PM\" },
+        wednesday: { open: \"11:00 AM\", close: \"11:00 PM\" },
+        thursday: { open: \"11:00 AM\", close: \"11:00 PM\" },
+        friday: { open: \"11:00 AM\", close: \"12:00 AM\" },
+        saturday: { open: \"10:00 AM\", close: \"12:00 AM\" },
+        sunday: { open: \"10:00 AM\", close: \"11:00 PM\" },
+      },
+      cuisineType: [\"North Indian\", \"South Indian\", \"Chinese\"],
+      subscriptionPlan: \"pro\",
+      subscriptionStatus: \"active\",
+      features: {
+        analytics: true,
+        advancedOffers: true,
+        kitchenDisplay: true,
+        multiLanguage: true,
+        whatsappIntegration: true,
+      },
+      settings: {
+        currency: \"INR\",
+        taxPercent: 5,
+        deliveryCharges: 0,
+        minimumOrderValue: 200,
+      },
+      averageRating: 4.5,
+      totalOrders: 2145,
+      monthlyRevenue: 450000,
+    });
+
+    const savedRestaurant = await demoRestaurant.save();
+    logger.info(`Successfully created demo restaurant: ${savedRestaurant._id}`);
+
+    return savedRestaurant;
+  } catch (error) {
+    logger.error(\"Error seeding demo restaurant:\", error);
+    throw error;
+  }
+};
