@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import { generateToken, generateRefreshToken } from "../utils/tokenUtils.js";
 import { seedDemoRestaurant, seedDemoMenuItems } from "../config/demoData.js";
 import logger from "../utils/logger.js";
-import jwt from "jsonwebtoken";\n
+import jwt from "jsonwebtoken";
 export const register = async (req, res) => {
   try {
     const { name, email, phone, password, restaurantName, role } = req.body;
